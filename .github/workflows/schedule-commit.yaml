@@ -33,6 +33,18 @@ jobs:
         run: |
           install.packages('remotes')
           install.packages('sessioninfo')
+          install.packages('tidyverse')
+          install.packages('googledrive')
+          install.packages('here')
+          install.packages('readxl')
+          install.packages('ncdf4')
+          install.packages('rerddap')
+          install.packages('worrms')
+          install.packages('lubridate')
+          install.packages('reshape2')
+          install.packages('EML')
+          remotes::install_github('EDIorg/EDIutils', update=FALSE, ask=FALSE)
+          remotes::install_github('EDIorg/taxonomyCleanr', update=FALSE, ask=FALSE)
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -61,6 +73,11 @@ jobs:
           git add --all
           git commit -am "add data"
           git push 
+
+      - name: Publish data
+        run: |
+          source("R/job.R")
+        shell: Rscript {0} 
 
       - name: Session info
         run: |
