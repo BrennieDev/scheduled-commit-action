@@ -3,6 +3,8 @@ on: workflow_dispatch
 #    - cron: "0 * * * *"
 
 jobs:
+  environment: testenv
+
   generate-data:
     runs-on: ${{ matrix.config.os }}
 
@@ -51,7 +53,7 @@ jobs:
           
       - name: Generate DwC-A data package
         env:
-          TEST_SECRET: ${{ secrets.TEST }}
+          TEST_SECRET: ${{ secrets.TESTEST }}
         run: |
           source("R/job.R")
         shell: Rscript {0} 
