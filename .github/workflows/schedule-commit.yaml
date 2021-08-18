@@ -36,7 +36,7 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Query dependencies
+      - name: Query R dependencies
         run: |
           install.packages('httr')
           install.packages('crul')
@@ -44,7 +44,8 @@ jobs:
           install.packages('V8')
           install.packages('remotes')
           install.packages('sessioninfo')
-          install.packages('tidyverse')
+          install.packages('stringr')
+          install.packages('readr')
           install.packages('googledrive')
           install.packages('here')
           install.packages('readxl')
@@ -67,28 +68,28 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install dependencies
+      - name: Install R dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
           
-      - name: Generate data
+      - name: Generate DwC-A data package
         run: |
           source("R/job.R")
         shell: Rscript {0} 
         
-      - name: Commit files
+      - name: Commit generated files
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add --all
-          git commit -am "add data"
+          git commit -am "added generated dataset files"
           git push 
 
-      - name: Publish data
-        run: |
-          source("R/job.R")
-        shell: Rscript {0} 
+      # - name: Publish data to EDI
+      #   run: |
+      #     source("R/job.R")
+      #   shell: Rscript {0} 
 
       - name: Session info
         run: |

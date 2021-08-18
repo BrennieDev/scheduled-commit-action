@@ -1,18 +1,20 @@
 Package: ScheduledCommitAction
-Title: Running R Scripts on a Schedule with GitHub Actions
+Title: HABs data DwC-A transform and publishing
 Version: 1.0.0
 Authors@R: 
-    person(given = "Simon",
-           family = "Couch",
+    person(given = "Ian",
+           family = "Brunjes",
            role = c("aut", "cre"),
-           email = "simonpatrickcouch@gmail.com")
-Description: Contains an example repository for running R scripts on a schedule
-    and commiting their results. See the accompanying blog post!
+           email = "ianbrunjes@ucsb.edu")
+Description: Scheduled GitHub Action for propagation of Harmful Algal Blooms (HABs) data from ERDDAP into remote data repositories (EDI).
 License: MIT + file LICENSE
 Imports:
     V8,
     httr,
-    tidyverse,
+    crul,
+    jsonld,
+    stringr,
+    readr,
     googledrive,
     here,
     readxl,
