@@ -29,25 +29,25 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Query R dependencies
-        run: |
-          install.packages('remotes')
-          install.packages('sessioninfo')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-
-      - name: Install R dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+      # - name: Query R dependencies
+      #   run: |
+      #     install.packages('remotes')
+      #     install.packages('sessioninfo')
+      #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+      #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+      #   shell: Rscript {0}
+      # 
+      # - name: Cache R packages
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ${{ env.R_LIBS_USER }}
+      #     key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+      #     restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+      # 
+      # - name: Install R dependencies
+      #   run: |
+      #     remotes::install_deps(dependencies = TRUE)
+      #   shell: Rscript {0}
           
       - name: Generate DwC-A data package
         env:
@@ -56,13 +56,13 @@ jobs:
           source("R/job.R")
         shell: Rscript {0} 
         
-      - name: Commit generated files
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add --all
-          git commit -am "added generated dataset files"
-          git push
+      # - name: Commit generated files
+      #   run: |
+      #     git config --local user.email "actions@github.com"
+      #     git config --local user.name "GitHub Actions"
+      #     git add --all
+      #     git commit -am "added generated dataset files"
+      #     git push
 
       - name: Session info
         run: |
