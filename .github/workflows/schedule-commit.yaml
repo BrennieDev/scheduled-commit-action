@@ -53,7 +53,7 @@ jobs:
         env:
           TEST_SECRET: ${{secrets.TEST}}
         run: |
-          sys.setenv(TESTSECRET = $TEST_SECRET)
+          sys.setenv(TESTSECRET = \${TEST_SECRET})
           source("R/job.R")
         shell: Rscript {0} 
         
