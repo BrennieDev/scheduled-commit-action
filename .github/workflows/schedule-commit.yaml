@@ -20,6 +20,11 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - name: Install OS dependencies
+        run: |
+          sudo apt-get install curl
+          sudo apt-get install libcurl4-openssl-dev
+          sudo apt-get install libjq-dev
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
@@ -31,9 +36,6 @@ jobs:
 
       - name: Query dependencies
         run: |
-          sudo apt-get install curl
-          sudo apt-get install libcurl4-openssl-dev
-          sudo apt-get install libjq-dev
           install.packages('httr')
           install.packages('crul')
           install.packages('jsonld')
