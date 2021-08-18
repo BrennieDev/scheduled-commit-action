@@ -11,6 +11,7 @@ Description: Contains an example repository for running R scripts on a schedule
 License: MIT + file LICENSE
 Imports:
     V8,
+    httr,
     tidyverse,
     googledrive,
     here,
