@@ -3,9 +3,8 @@ on: workflow_dispatch
 #    - cron: "0 * * * *"
 
 jobs:
-  environment: testenv
-
   generate-data:
+    environment: testenv
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
