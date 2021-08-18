@@ -1,2 +1,2 @@
 print("env var loaded:")
-print(Sys.getenv("TESTSECRET"))
+print(Sys.getenv("TEST_SECRET"))
