@@ -22,13 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install OS dependencies
-        run: |
-          sudo apt-get install curl
-          sudo apt-get install libcurl4-openssl-dev
-          sudo apt-get install libjq-dev
-          sudo apt-get install libnetcdf-dev
-
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
@@ -38,25 +31,8 @@ jobs:
 
       - name: Query R dependencies
         run: |
-          install.packages('httr')
-          install.packages('crul')
-          install.packages('jsonld')
-          install.packages('V8')
           install.packages('remotes')
           install.packages('sessioninfo')
-          install.packages('stringr')
-          install.packages('readr')
-          install.packages('googledrive')
-          install.packages('here')
-          install.packages('readxl')
-          install.packages('ncdf4')
-          install.packages('rerddap')
-          install.packages('worrms')
-          install.packages('lubridate')
-          install.packages('reshape2')
-          install.packages('EML')
-          remotes::install_github('EDIorg/EDIutils', update=FALSE, ask=FALSE)
-          remotes::install_github('EDIorg/taxonomyCleanr', update=FALSE, ask=FALSE)
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -74,6 +50,8 @@ jobs:
         shell: Rscript {0}
           
       - name: Generate DwC-A data package
+        env:
+          TESTSECRET: ${{secrets.TEST}}
         run: |
           source("R/job.R")
         shell: Rscript {0} 
@@ -84,12 +62,7 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add --all
           git commit -am "added generated dataset files"
-          git push 
-
-      # - name: Publish data to EDI
-      #   run: |
-      #     source("R/job.R")
-      #   shell: Rscript {0} 
+          git push
 
       - name: Session info
         run: |
