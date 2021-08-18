@@ -51,8 +51,9 @@ jobs:
           
       - name: Generate DwC-A data package
         env:
-          TESTSECRET: ${{secrets.TEST}}
+          TEST_SECRET: ${{secrets.TEST}}
         run: |
+          sys.setenv(TESTSECRET = $TEST_SECRET)
           source("R/job.R")
         shell: Rscript {0} 
         
@@ -64,9 +65,9 @@ jobs:
       #     git commit -am "added generated dataset files"
       #     git push
 
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
+      # - name: Session info
+      #   run: |
+      #     options(width = 100)
+      #     pkgs <- installed.packages()[, "Package"]
+      #     sessioninfo::session_info(pkgs, include_base = TRUE)
+      #   shell: Rscript {0}
