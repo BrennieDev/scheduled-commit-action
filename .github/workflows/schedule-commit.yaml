@@ -51,7 +51,7 @@ jobs:
           
       - name: Generate DwC-A data package
         env:
-          TEST_SECRET: "secret stuff"
+          TEST_SECRET: ${{ secrets.TEST }}
         run: |
           source("R/job.R")
         shell: Rscript {0} 
