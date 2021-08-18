@@ -9,6 +9,20 @@ Authors@R:
 Description: Contains an example repository for running R scripts on a schedule
     and commiting their results. See the accompanying blog post!
 License: MIT + file LICENSE
+Imports:
+    V8,
+    tidyverse,
+    googledrive,
+    here,
+    readxl,
+    rerddap,
+    worrms,
+    dplyr,
+    lubridate,
+    reshape2,
+    EML,
+    taxonomyCleanr,
+    EDIutils
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
